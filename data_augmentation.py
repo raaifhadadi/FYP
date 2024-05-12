@@ -40,7 +40,7 @@ def generate_sin_drift(length, drift_wavelength_range):
     time = time + start_phase_pos
 
     # generate drift
-    drift = np.sin(2 * np.pi * (1 / drift_wavelength) * time) #* drift_amplitude
+    drift = np.sin(2 * np.pi * (1 / drift_wavelength) * time)
     return drift
 
 def add_random_baseline_drift(ecg, drift_wavelength_range=(1000, 4000), strength_range=(3,5)):
@@ -55,18 +55,14 @@ def add_random_baseline_drift(ecg, drift_wavelength_range=(1000, 4000), strength
     Returns:
         array-like: 12-lead ECG signal with baseline drift added.
     """
-    ecg_qranges = []
-
-    # find IQR for each lead
-    for lead in ecg.T:
-        q75, q25 = np.percentile(lead, [75 ,25])
-        ecg_qranges.append(q75 - q25)
+    q75, q25 = np.percentile(ecg, [75, 25], axis=0)
+    ecg_qranges = q75 - q25
         
     drift = generate_sin_drift(ecg.shape[0], drift_wavelength_range)
     strength = np.random.uniform(*strength_range)
     
-    drifts = np.array([drift * ecg_qrange * strength for ecg_qrange in ecg_qranges])
-    drifts = drifts.T
+    drifts = drift[:, np.newaxis] * ecg_qranges * strength
+    ecg_with_drift = ecg + drifts
     
     ecg_with_drift = ecg + drifts
     return ecg_with_drift, drifts
