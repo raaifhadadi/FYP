@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import data_visualisation as dv
 
-def add_random_noise(ecg, noise_level=0.05):
+def add_random_noise(ecg, noise_level_range=(0, 0.05)):
     """Adds random noise to an ECG signal.
 
     Args:
@@ -15,6 +15,7 @@ def add_random_noise(ecg, noise_level=0.05):
     stds = np.std(ecg, axis=0)
     
     # Generate noise for each lead using the standard deviations
+    noise_level = np.random.uniform(*noise_level_range)
     noise = noise_level * stds * np.random.randn(*ecg.shape)
     ecg_noisy = ecg + noise
     return ecg_noisy
