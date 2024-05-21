@@ -1,9 +1,10 @@
 /__pycache__/
+*.pyc
 /.venv/
 /DAT China/
 /physionet.org/
 /Report/
-/models/
+/model-weights/
 /data/
 /mimic-iv-ecg-diagnostic-electrocardiogram-matched-subset-1.0/
 /temp-stuff/
