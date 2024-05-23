@@ -32,10 +32,11 @@ def model(X, num_classes=5, filters = [16, 16], kernels = [5, 3], layers=4, hidd
             if i == 1:
                 X = keras.layers.MaxPooling1D(2)(X)
         
-        features_output = keras.layers.GlobalAveragePooling1D()(X)
-        X = keras.layers.Dropout(0.5)(features_output)
+        X = keras.layers.GlobalAveragePooling1D()(X)
+        X = keras.layers.Dropout(0.5)(X)
         
         X = keras.layers.Dense(hidden_units, activation='leaky_relu', name='dense1')(X)
+        features_output = X
         X = keras.layers.Dropout(0.1)(X)
         X = keras.layers.Dense(hidden_units/2, activation='leaky_relu', name='dense2')(X)
         X = keras.layers.Dense(num_classes, activation='sigmoid', name='output')(X)
