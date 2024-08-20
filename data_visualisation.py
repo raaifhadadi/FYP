@@ -3,7 +3,7 @@ import numpy as np
 
 twelve_lead = ['I', 'II', 'III', 'aVR', 'aVL', 'aVF', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6']
 
-def plot_12_lead_ecg(ecg, label=None, leads = ['I', 'II', 'III', 'aVR', 'aVL', 'aVF', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6']):
+def plot_12_lead_ecg(ecg, label=None, leads = ['I', 'II', 'III', 'aVR', 'aVL', 'aVF', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6'], save=False, save_path=None):
     """ 
     Plot a 12 lead ECG in a single figure.
     
@@ -27,6 +27,9 @@ def plot_12_lead_ecg(ecg, label=None, leads = ['I', 'II', 'III', 'aVR', 'aVL', '
         axs[i].set_ylabel(leads[i])
         
     plt.show()
+    
+    if save:
+        plt.savefig(save_path)
     
 def plot_12_lead_ecgs(ecgs, labels=None):
     """ 
