@@ -25,11 +25,12 @@ def plot_12_lead_ecg(ecg, label=None, leads = ['I', 'II', 'III', 'aVR', 'aVL', '
     for i in range(no_leads):
         axs[i].plot(ecg[:, i])
         axs[i].set_ylabel(leads[i])
-        
-    plt.show()
     
     if save:
         plt.savefig(save_path)
+        
+    plt.show()
+    
     
 def plot_12_lead_ecgs(ecgs, labels=None):
     """ 
